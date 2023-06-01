@@ -4,8 +4,86 @@
   box-sizing: border-box;
 }
 
-body {
+.conteiner {
   width: 100vw;
   height: 100vh;
-  background-color: #C8B8D1;
+  background-color: #c299dc;
+  display: flex;
+  flex-direction: column;
+}
+
+.contentBusca {
+  height: 20%;
+  background-color: purple;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentLogoTitulo {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.iconLivro {
+  font-size: 3em !important;
+  padding-right: 3%;
+}
+
+.pesquisa {
+  width: 30%;
+  height: 30%;
+  border-radius: 20px !important;
+  border: 0;
+}
+
+.titulo {
+  font-size: 1.5em;
+  color: white;
+}
+
+.contentListagemLivros {
+  width: 100%;
+  height: 80%;
+}
+
+.TituloListagemLivros {
+  margin: 2.5% 0 0 3%;
+  color: white;
+}
+
+.contentlistaLivros {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  padding: 0 3% 0 3%;
+  overflow-y: auto;
+}
+
+.contentLivro {
+  background-color: white;
+  min-width: 15%;
+  height: 65%;
+  margin: 0 2% 0 0;
+  padding: 2% 1% 0 1%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imgLivro {
+  width: 50%;
+  height: 50%;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+
+.tituloLivro {
+  margin-top: 4%;
 }
