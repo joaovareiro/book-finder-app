@@ -12,7 +12,7 @@
    * `npm start`
 
 ## Desenvolvido por 
- 👩‍💻 Anália Beatriz
- 👩‍💻 João Pedro Vareiro
- 👩‍💻 Lucas
- 👩‍💻 José Lucas
+* 👩‍💻 Anália Beatriz
+* 👩‍💻 João Pedro Vareiro
+* 👩‍💻 Lucas
+* 👩‍💻 José Lucas
