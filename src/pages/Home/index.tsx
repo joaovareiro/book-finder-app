@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import BookIcon from "@mui/icons-material/Book";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -6,9 +7,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
-import "./App.css";
+import "./style.css";
 
-const App: React.FC = () => {
+const Home: React.FC = () => {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState<any[]>([]);
 
@@ -41,14 +42,14 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      {" "}
       <div className="conteiner">
         <div className="contentBusca">
           <div className="contentLogoTitulo">
             <BookIcon color="primary" className="iconLivro"></BookIcon>
             <h1 className="titulo">Book Finder</h1>
           </div>
-          <Paper className="pesquisa"
+          <Paper
+            className="pesquisa"
             component="form"
             sx={{
               p: "1px 2px",
@@ -77,7 +78,6 @@ const App: React.FC = () => {
         </div>
 
         <h1 className="TituloListagemLivros">Mais Vendidos</h1>
-        <h1 className="TituloListagemLivroSecudanrio">ver mais</h1>
         <div className="contentlistaLivros">
           {books.map((book) => (
             <div key={book.id} className="contentLivro">
@@ -87,6 +87,7 @@ const App: React.FC = () => {
                 className="imgLivro"
               />
               <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
+              <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">Ver mais</Link>
             </div>
           ))}
         </div>
@@ -95,5 +96,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
-
+export default Home;
