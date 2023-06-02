@@ -59,19 +59,20 @@ const BookInfo: React.FC = () => {
             <h1 className="titulo">Book Finder</h1>
           </div>
         </div>
-        <h2 className="TituloLivro">{title}</h2>
-        <div className="cardBook">
-        <img
-          src={book.volumeInfo.imageLinks?.thumbnail}
-          alt={book.volumeInfo.title}
-          className="imgbook"
-        />
-        <p  className="autores" dangerouslySetInnerHTML={{ __html: sanitizeHTML(authors) }}></p>
+        <div className="conteinerInfo">
+          <p className="descricao" dangerouslySetInnerHTML={{ __html: sanitizeHTML(description) }}></p>
+          <div className="cardBook">
+            <p className="tituloLivro">{title}</p>
+            <img
+              src={book.volumeInfo.imageLinks?.thumbnail}
+              alt={book.volumeInfo.title}
+              className="imgbook"
+            />
+            <p className="autores" dangerouslySetInnerHTML={{ __html: sanitizeHTML(authors) }}></p>
+          </div>
+        </div>
       </div>
-      <p  className="descricao" dangerouslySetInnerHTML={{ __html: sanitizeHTML(description) }}></p>
 
-      </div>
-      
     </ThemeProvider>
   );
 };
