@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.conteiner {
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardBook {
+    background-color: #f0edd4;
+    width: 15%;
+    height: 30%;
+    margin: 0% 0% 15% 80%;
+    padding: 10% 2% 0 1%;
+    border-radius: 30px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imgbook {
+    margin: 0% 0% 0% 15%;
+    border-radius: 25px !important;
+    width: 80%;
+
+}
+
+.TituloLivro {
+    margin: 3% 5% 0% 8%;
+    text-decoration: underline;
+}
+
+.descricao {
+    float: left;
+    width: 40%;
+    margin: 3% 5% 0% 4.5% ;
+}
+
+.autores {
+    text-decoration: underline;
+
+}
