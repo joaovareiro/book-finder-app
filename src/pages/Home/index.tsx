@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import BookIcon from "@mui/icons-material/Book";
@@ -8,15 +8,19 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import "./style.css";
+import { Carousel } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col } from 'react-bootstrap';
+
 
 const Home: React.FC = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("fiction");
   const [books, setBooks] = useState<any[]>([]);
 
   const searchBooks = async () => {
     try {
       const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}`
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`
       );
       setBooks(response.data.items);
     } catch (error) {
@@ -39,6 +43,10 @@ const Home: React.FC = () => {
       },
     },
   });
+  
+  useEffect(() => {
+    searchBooks();
+  }, []); 
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,18 +87,32 @@ const Home: React.FC = () => {
 
         <h1 className="TituloListagemLivros">Mais Vendidos</h1>
         <div className="contentlistaLivros">
-          {books.map((book) => (
-            <div key={book.id} className="contentLivro">
-              <img
-                src={book.volumeInfo.imageLinks?.thumbnail}
-                alt={book.volumeInfo.title}
-                className="imgLivro"
-              />
-              <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
-              <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">Ver mais</Link>
-            </div>
+        <Carousel indicators={false} interval={null} className="carouselLivros">
+          {books.map((book, index) => (
+            index % 5 === 0 && (
+              <Carousel.Item key={index}>
+                <Container>
+                  <Row>
+                    {books.slice(index, index + 5).map((book) => (
+                      <Col key={book.id} xs={12} sm={6} md={4} lg={2} className="contentLivro">
+                        <img
+                          src={book.volumeInfo.imageLinks?.thumbnail}
+                          alt={book.volumeInfo.title}
+                          className="imgLivro"
+                        />
+                        <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
+                        <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">
+                          Ver mais
+                        </Link>
+                      </Col>
+                    ))}
+                  </Row>
+                </Container>
+              </Carousel.Item>
+            )
           ))}
-        </div>
+        </Carousel>
+      </div>
       </div>
     </ThemeProvider>
   );
