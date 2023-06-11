@@ -1,0 +1,11 @@
+<div>
+    <label>{{ genre }}</label>
+    <ul>
+      <li *ngFor="let book of books">
+        <img [src]="book.imageUrl" alt="Book Image">
+        <h3>{{ book.title }}</h3>
+        <p>Price: {{ book.price }}</p>
+      </li>
+    </ul>
+  </div>
+  
