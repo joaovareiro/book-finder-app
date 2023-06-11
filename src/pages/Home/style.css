@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.conteiner {
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentBusca {
+    height: 15%;
+    background-color: #A7A37E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.contentLogoTitulo {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.iconLivro {
+    font-size: 2em !important;
+    padding-right: 3%;
+    color: black !important;
+}
+
+.pesquisa {
+    width: 30%;
+    height: 40%;
+    border-radius: 15px !important;
+    border: 0;
+}
+
+.titulo {
+    font-size: 1.3em;
+    color: black;
+}
+
+.contentListagemLivros {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.TituloListagemLivros {
+    margin: 2.5% 0 0 5%;
+    color: back;
+    font-size: 2.5em;
+}
+
+.TituloListagemLivroSecudanrio {
+    margin: 0% 0 0 20%;
+    color: black;
+    font-size: 1em;
+    text-decoration: underline;
+}
+
+.contentlistaLivros {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 2% 0 3%;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.contentLivro {
+    background-color: #f0edd4;
+    min-width: 15%;
+    height: 350px;
+    margin: 0 2% 0 0;
+    padding: 3% 2% 0 1%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.imgLivro {
+    width: 50%;
+    height: 50%;
+    min-height: 150px;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+.tituloLivro {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    max-width: 170px;
+    text-overflow: ellipsis;
+}
+
+.linkInformacaoLivro {
+    color: black;
+    margin-bottom: 15%;
+}
+
+.carousel {
+    width: 100%;
+    height: 50%;
+    margin: 2% auto;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
+}
