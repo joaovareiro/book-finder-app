@@ -33,6 +33,7 @@ const BookInfo: React.FC = () => {
   const title = book.volumeInfo.title || "";
   const description = book.volumeInfo.description || "";
   const authors = book.volumeInfo.authors || "";
+  const link = book.volumeInfo.infoLink || "";
 
   const sanitizeHTML = (htmlString: string) => {
     const doc = new DOMParser().parseFromString(htmlString, "text/html");
@@ -49,7 +50,7 @@ const BookInfo: React.FC = () => {
       },
     },
   });
-
+  console.log(book);
   return (
     <ThemeProvider theme={theme}>
       <div className="conteiner">
@@ -60,7 +61,11 @@ const BookInfo: React.FC = () => {
           </div>
         </div>
         <div className="conteinerInfo">
-          <p className="descricao" dangerouslySetInnerHTML={{ __html: sanitizeHTML(description) }}></p>
+          <div className="bookInfo">
+            <p className="descricao" dangerouslySetInnerHTML={{ __html: sanitizeHTML(description) }}></p>
+            <a className="linkBook" href={link}>Ver mais informações</a>
+          </div>
+          {/* pensei em usar (target="_blank" rel="noopener noreferrer") para quando clicar no link abrir em nova guia mas fiquei inserto deixei sem */}
           <div className="cardBook">
             <p className="tituloLivro">{title}</p>
             <img
