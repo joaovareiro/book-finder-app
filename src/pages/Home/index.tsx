@@ -47,7 +47,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     searchBooks();
   }, []); 
-
+  const terrorKeywords = ["terror", "horror", "assustador", "medo"];
   return (
     <ThemeProvider theme={theme}>
       <div className="conteiner">
@@ -94,6 +94,37 @@ const Home: React.FC = () => {
                 <Container>
                   <Row>
                     {books.slice(index, index + 5).map((book) => (
+                      <Col key={book.id} xs={12} sm={6} md={4} lg={2} className="contentLivro">
+                        <img
+                          src={book.volumeInfo.imageLinks?.thumbnail}
+                          alt={book.volumeInfo.title}
+                          className="imgLivro"
+                        />
+                        <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
+                        <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">
+                          Ver mais
+                        </Link>
+                      </Col>
+                    ))}
+                  </Row>
+                </Container>
+              </Carousel.Item>
+            )
+          ))}
+        </Carousel>
+      </div>
+      
+      <h1 className="TituloListagemLivros">Mais vendidos Terror</h1>
+      <div className="contentlistaLivros">
+        <Carousel indicators={false} interval={null} className="carouselLivros">
+          {books.map((book, index) => (
+            index % 5 === 0 && (
+              <Carousel.Item key={index}>
+                <Container>
+                  <Row>
+                    {books.slice(index, index + 5)
+                    .filter((book) => book.volumeInfo.categories == "Terror")
+                    .map((book) => (
                       <Col key={book.id} xs={12} sm={6} md={4} lg={2} className="contentLivro">
                         <img
                           src={book.volumeInfo.imageLinks?.thumbnail}
