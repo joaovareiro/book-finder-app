@@ -18,6 +18,13 @@
     justify-content: space-evenly;
 }
 
+.bookInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    max-width: 750px;
+}
+
 .cardBook {
     background-color: #f0edd4;
     border-radius: 30px;
@@ -50,7 +57,13 @@
 }
 
 .descricao {
-    width: 40%;
+    width: 100%;
     margin: 3% 5% 0% 4.5%;
     font-size: 25px;
+}
+
+.linkBook{
+    margin: 3% 5% 0% 4.5%;
+    font-size: 22.5px;
+    font-weight: 500;
 }
