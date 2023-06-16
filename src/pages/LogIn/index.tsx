@@ -7,6 +7,8 @@ import { app, db } from '../../firebase';
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from 'firebase/auth';
 import bcrypt from 'bcryptjs';
+import './style.css';
+
 
 const checkUser = async (email: string, senha: string) => {
   const usersCollection = collection(db, 'users');
@@ -59,7 +61,7 @@ const LoginPage = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
-      <Link to="/cadastro" className="ButtonSingIn">Ir para SignIn</Link>
+      <Link to="/cadastro" className="ButtonCadastro">Ir para cadastro</Link>
     </div>
   );
 };
