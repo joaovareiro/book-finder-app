@@ -18,10 +18,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve",
+    "types": [
+      "firebase"
+    ]
   },
   "include": [
     "src"
-  ],
-  "types": ["firebase"]
+  ]
 }
+
