@@ -15,8 +15,8 @@ button {
     display: block;
     margin: 10px auto;
     padding: 10px 20px;
-    background-color: #4caf50;
-    color: white;
+    background-color: #A7A37E;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -26,7 +26,7 @@ button {
     display: block;
     text-align: center;
     margin-top: 20px;
-    color: #4caf50;
+    color: #A7A37E;
     text-decoration: none;
 }
 
