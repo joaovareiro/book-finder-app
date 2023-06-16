@@ -1,53 +1,57 @@
+
 import React, { useState } from 'react';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase';
 import { Link } from 'react-router-dom';
+import { app, db } from '../../firebase';
 
-const app = initializeApp(firebaseConfig);
+
+const createUser = async (email: string, senha: string, curtidos: null) => {
+
+    await addDoc(collection(db, "users"), {
+      login: email,
+      senha: senha,
+    })
+      .then(() => {
+        console.log("Dados registrados no banco");
+      })
+      .catch((error) => {
+        console.log("Gerou um erro ao adicionar" + error);
+      });
+};
 
 const SignInPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const [email, setEmail] = useState('');
+const [senha, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    const db = getFirestore(app);
+const handleLogin = async () => {
 
-    try {
-      await addDoc(collection(db, '123'), {
-        email: email,
-        senha: password,
-      });
+  createUser(email, senha, null);
 
-      console.log('Dados salvos com sucesso!');
-      alert('Login realizado com sucesso!');
-    } catch (error) {
-      console.error('Erro ao salvar os dados:', error);
-      alert('Ocorreu um erro durante o login. Por favor, tente novamente.');
-    }
-    console.log('Email:', email);
-    console.log('Senha:', password);
-  };
+console.log('Email:', email);
+console.log('Senha:', senha);
+};
 
-  return (
-    <div>
-      <h1>Página de Cadastro</h1>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Senha" 
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Cadastro</button>
-      <Link to={`/`} className='ButtonLogIn'>Retornar Log In</Link>
-    </div>
-  );
+return (
+<div>
+<h1>Página de Cadastro</h1>
+<input
+type="email"
+placeholder="Email"
+value={email}
+onChange={(e) => setEmail(e.target.value)}
+/>
+<input
+type="password"
+placeholder="Senha"
+value={senha}
+onChange={(e) => setPassword(e.target.value)}
+/>
+<button onClick={handleLogin}>Cadastro</button>
+<Link to={'/'} className='ButtonLogIn'>Retornar Log In</Link>
+</div>
+);
 };
 
 export default SignInPage;

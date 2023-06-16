@@ -1,33 +1,38 @@
 import React, { useState } from 'react';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase';
 import { Link } from 'react-router-dom';
+import { app, db } from '../../firebase';
+import { getAnalytics } from "firebase/analytics";
+import { getAuth } from 'firebase/auth';
 
-const app = initializeApp(firebaseConfig);
+
+const checkUser = async (email:string, password:string) => {
+  const usersCollection = collection(db, 'users');
+  const querySnapshot = await getDocs(query(usersCollection, where('login', '==', email), where('senha', '==', password)));
+
+  if (!querySnapshot.empty) {
+    console.log('Login realizado com sucesso!');
+    return 0;
+  } else {
+    console.log('Login não realizado!');
+    return 1;
+  }
+};
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setPassword] = useState('');
 
   const handleLogin = async () => {
-    const db = getFirestore(app);
-
     try {
-      await addDoc(collection(db, '123'), {
-        email: email,
-        senha: password,
-      });
-
-      console.log('Dados salvos com sucesso!');
-      alert('Login realizado com sucesso!');
+      await checkUser(email, senha);
     } catch (error) {
-      console.error('Erro ao salvar os dados:', error);
+      console.error('Erro ao fazer login:', error);
       alert('Ocorreu um erro durante o login. Por favor, tente novamente.');
     }
-
-    console.log('Email:', email);
-    console.log('Senha:', password);
   };
 
   return (
@@ -42,11 +47,11 @@ const LoginPage = () => {
       <input
         type="password"
         placeholder="Senha"
-        value={password}
+        value={senha}
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
-      <Link to={`/cadastro`} className='ButtonSingIn'>Ir para sing in</Link>
+      <Link to="/cadastro" className="ButtonSingIn">Ir para SignIn</Link>
     </div>
   );
 };
