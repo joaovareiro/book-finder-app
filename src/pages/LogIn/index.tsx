@@ -23,6 +23,7 @@ const checkUser = async (email: string, senha: string) => {
       return 0;
     } else {
       console.log('Senha incorreta!');
+      alert('Senha não confere')
       return 1;
     }
   } else {
