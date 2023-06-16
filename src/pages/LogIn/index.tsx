@@ -6,15 +6,23 @@ import { Link } from 'react-router-dom';
 import { app, db } from '../../firebase';
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from 'firebase/auth';
+import bcrypt from 'bcryptjs';
 
-
-const checkUser = async (email:string, password:string) => {
+const checkUser = async (email: string, senha: string) => {
   const usersCollection = collection(db, 'users');
-  const querySnapshot = await getDocs(query(usersCollection, where('login', '==', email), where('senha', '==', password)));
+  const querySnapshot = await getDocs(query(usersCollection, where('login', '==', email)));
 
   if (!querySnapshot.empty) {
-    console.log('Login realizado com sucesso!');
-    return 0;
+    const user = querySnapshot.docs[0].data();
+
+    const isPasswordMatched = await bcrypt.compare(senha, user.senha);
+    if (isPasswordMatched) {
+      console.log('Login realizado com sucesso!');
+      return 0;
+    } else {
+      console.log('Senha incorreta!');
+      return 1;
+    }
   } else {
     console.log('Login não realizado!');
     return 1;
