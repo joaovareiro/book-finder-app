@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../../firebase';
+import { firebaseConfig } from '../../firebase';
+import { Link } from 'react-router-dom';
 
 const app = initializeApp(firebaseConfig);
 
@@ -44,6 +45,7 @@ const SignInPage = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Cadastro</button>
+      <Link to={`/`} className='ButtonLogIn'>Retornar Log In</Link>
     </div>
   );
 };

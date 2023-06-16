@@ -13,9 +13,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/bookinfo/:id" element={<BookInfo />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/cadastro" element={<CadastroPage />} />
       </Routes>
     </BrowserRouter>

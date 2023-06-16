@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../../firebase'; // Importe o objeto de configuração do Firebase
+import { firebaseConfig } from '../../firebase';
+import { Link } from 'react-router-dom';
 
-const app = initializeApp(firebaseConfig); // Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    const db = getFirestore(app); // Obtenha uma referência para o objeto do Firestore
+    const db = getFirestore(app);
 
     try {
       await addDoc(collection(db, '123'), {
         email: email,
         senha: password,
-        // Outros campos do livro
       });
 
       console.log('Dados salvos com sucesso!');
@@ -28,7 +28,6 @@ const LoginPage = () => {
 
     console.log('Email:', email);
     console.log('Senha:', password);
-    // Exemplo de lógica de login bem-sucedido
   };
 
   return (
@@ -47,6 +46,7 @@ const LoginPage = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
+      <Link to={`/cadastro`} className='ButtonSingIn'>Ir para sing in</Link>
     </div>
   );
 };

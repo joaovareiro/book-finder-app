@@ -20,13 +20,10 @@ export const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-// Obtenha uma instância do Firestore
 export const firestore = getFirestore(app);
-
-// Agora você pode usar o objeto 'firestore' para escrever e fazer consultas no Firebase Firestore
-// Por exemplo:
-firestore.collection("livros").add({
-  titulo: "Meu Livro",
-  autor: "Autor do Livro",
-  // Outros campos do livro
-});
+/*
+  firestore.collection("livros").add({
+    titulo: "Meu Livro",
+    autor: "Autor do Livro",
+  });
+*/
