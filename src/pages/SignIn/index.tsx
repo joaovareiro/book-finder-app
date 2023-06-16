@@ -1,4 +1,4 @@
-
+import './style.css';
 import React, { useState } from 'react';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
@@ -51,8 +51,8 @@ const SignInPage = () => {
         value={senha}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleLogin}>Cadastro</button>
-      <Link to={'/'} className='ButtonLogIn'>Retornar Log In</Link>
+      <button onClick={handleLogin}>Cadastrar</button>
+      <Link to='/' className='ButtonLogin'>Retornar para Login</Link>
     </div>
   );
 };
