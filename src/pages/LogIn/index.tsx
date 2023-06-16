@@ -2,40 +2,41 @@ import React, { useState } from 'react';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { app, db } from '../../firebase';
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
 import bcrypt from 'bcryptjs';
 import './style.css';
 
-
-const checkUser = async (email: string, senha: string) => {
-  const usersCollection = collection(db, 'users');
-  const querySnapshot = await getDocs(query(usersCollection, where('login', '==', email)));
-
-  if (!querySnapshot.empty) {
-    const user = querySnapshot.docs[0].data();
-
-    const isPasswordMatched = await bcrypt.compare(senha, user.senha);
-    if (isPasswordMatched) {
-      console.log('Login realizado com sucesso!');
-      return 0;
-    } else {
-      console.log('Senha incorreta!');
-      alert('Senha não confere')
-      return 1;
-    }
-  } else {
-    console.log('Login não realizado!');
-    return 1;
-  }
-};
-
-
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [senha, setPassword] = useState('');
+
+  const checkUser = async (email: string, senha: string) => {
+    const usersCollection = collection(db, 'users');
+    const querySnapshot = await getDocs(query(usersCollection, where('login', '==', email)));
+
+    if (!querySnapshot.empty) {
+      const user = querySnapshot.docs[0].data();
+
+      const isPasswordMatched = await bcrypt.compare(senha, user.senha);
+      if (isPasswordMatched) {
+        console.log('Login realizado com sucesso!');
+        const queryParams = `?email=${encodeURIComponent(email)}&password=${encodeURIComponent(senha)}`;
+        navigate(`/home${queryParams}`);
+        return 0;
+      } else {
+        console.log('Senha incorreta!');
+        alert('Senha incorreta!');
+        return 1;
+      }
+    } else {
+      console.log('Login não realizado!');
+      return 1;
+    }
+  };
 
   const handleLogin = async () => {
     try {
@@ -62,7 +63,9 @@ const LoginPage = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
-      <Link to="/cadastro" className="ButtonCadastro">Ir para cadastro</Link>
+      <Link to="/cadastro" className="ButtonCadastro">
+        Ir para cadastro
+      </Link>
     </div>
   );
 };
