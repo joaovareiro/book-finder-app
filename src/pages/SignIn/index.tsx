@@ -1,32 +1,39 @@
+
 import React, { useState } from 'react';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase';
 import { Link } from 'react-router-dom';
+import { app, db } from '../../firebase';
+import bcrypt from 'bcryptjs';
 
-const app = initializeApp(firebaseConfig);
+
+const createUser = async (email: string, senha: string, curtidos: null) => {
+  const saltRounds = 10;
+  const salt = await bcrypt.genSalt(saltRounds);
+  const senhaEncriptada = bcrypt.hashSync(senha, salt)
+  await addDoc(collection(db, "users"), {
+    login: email,
+    senha: senhaEncriptada,
+  })
+    .then(() => {
+      console.log("Dados registrados no banco");
+    })
+    .catch((error) => {
+      console.log("Gerou um erro ao adicionar" + error);
+    });
+};
 
 const SignInPage = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setPassword] = useState('');
 
   const handleLogin = async () => {
-    const db = getFirestore(app);
 
-    try {
-      await addDoc(collection(db, '123'), {
-        email: email,
-        senha: password,
-      });
+    createUser(email, senha, null);
 
-      console.log('Dados salvos com sucesso!');
-      alert('Login realizado com sucesso!');
-    } catch (error) {
-      console.error('Erro ao salvar os dados:', error);
-      alert('Ocorreu um erro durante o login. Por favor, tente novamente.');
-    }
     console.log('Email:', email);
-    console.log('Senha:', password);
+    console.log('Senha:', senha);
   };
 
   return (
@@ -40,12 +47,12 @@ const SignInPage = () => {
       />
       <input
         type="password"
-        placeholder="Senha" 
-        value={password}
+        placeholder="Senha"
+        value={senha}
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Cadastro</button>
-      <Link to={`/`} className='ButtonLogIn'>Retornar Log In</Link>
+      <Link to={'/'} className='ButtonLogIn'>Retornar Log In</Link>
     </div>
   );
 };

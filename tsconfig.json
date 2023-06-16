@@ -20,11 +20,10 @@
     "noEmit": true,
     "jsx": "preserve",
     "types": [
-      "firebase"
+      "node"
     ]
   },
   "include": [
     "src"
   ]
 }
-
