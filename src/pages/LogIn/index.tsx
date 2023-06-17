@@ -44,25 +44,29 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h1>Página de Login</h1>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Senha"
-        value={senha}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-      <Link to="/cadastro" className="ButtonCadastro">
-        Ir para cadastro
-      </Link>
+
+    <div className="Login">
+      <div className="LoginBox">
+        <div className="LoginHeader">Login</div>
+        <div className="inputs">
+          <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            className="password"
+            placeholder="Senha"
+            type="password"
+            value={senha}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button onClick={handleLogin} className="submitbutton">Login</button>
+        </div>
+        <Link style={{ display: "flex", justifyContent: "center" }} to="/cadastro" className="ButtonCadastro">
+          Cadastra-se
+        </Link>
+      </div>
     </div>
+
   );
 };
 

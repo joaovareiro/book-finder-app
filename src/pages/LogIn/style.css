@@ -1,14 +1,70 @@
-h1 {
-    text-align: center;
+
+.Login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.LoginBox {
+    margin-top: 8rem;
+    width: 350px;
+    height: 400px;
+    background-color: #A7A37E;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.LoginHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.inputs {
+    padding: 5px;
+}
+
+.email {
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    border-width: 1;
+}
+
+.password {
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    border-width: 1;
+}
+
+.submitbutton {
+    width: 100px;
+    height: 40px;
+    background-color: black;
+    color: aliceblue;
+    border-radius: 6px;
+}
+
+
+
+
+
+
+
+
+/* h1 {
+    text-align: center;
+}
 input {
     display: block;
     margin: 10px auto;
     padding: 5px;
     width: 300px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #f5f4f4;
 }
 
 button {
@@ -26,10 +82,10 @@ button {
     display: block;
     text-align: center;
     margin-top: 20px;
-    color: #A7A37E;
+    color: #13120a;
     text-decoration: none;
 }
 
 .ButtonCadastro:hover {
     text-decoration: underline;
-}
+} */
