@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import BookIcon from "@mui/icons-material/Book";
@@ -14,23 +14,29 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 
 const Home: React.FC = () => {
-  const [query, setQuery] = useState("fiction");
-  const [books, setBooks] = useState<any[]>([]);
+  const [query, setQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [romanceBooks, setRomanceBooks] = useState<any[]>([]);
+  const [fictionBooks, setFictionBooks] = useState<any[]>([]);
+  const [terrorBooks, setTerrorBooks] = useState<any[]>([]);
 
-  const searchBooks = async () => {
+
+  const searchBooks = async (query: string) => {
     try {
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`
       );
-      setBooks(response.data.items);
+      return response.data.items;
     } catch (error) {
       console.error(error);
+      return [];
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    searchBooks();
+    const newBooks = await searchBooks(query);
+    setSearchResults(newBooks);
   };
 
   const theme = createTheme({
@@ -43,11 +49,63 @@ const Home: React.FC = () => {
       },
     },
   });
-  
+
   useEffect(() => {
-    searchBooks();
-  }, []); 
-  const terrorKeywords = ["terror", "horror", "assustador", "medo"];
+    const fetchTerrorBooks = async () => {
+      const terrorBooks = await searchBooks("livros de terror");
+      setTerrorBooks(terrorBooks);
+    };
+
+    fetchTerrorBooks();
+
+    const fetchFictionBooks = async () => {
+      const fictionBooks = await searchBooks("livros de ficção");
+      setFictionBooks(fictionBooks);
+    };
+
+    fetchFictionBooks();
+
+    const fetchRomanceBooks = async () => {
+      const romanceBooks = await searchBooks("livros de romance");
+      setRomanceBooks(romanceBooks);
+    };
+
+    fetchRomanceBooks();
+  }, []);
+  const renderCarousel = (title: string, carouselBooks: any[]) => (
+    <Carousel indicators={false} interval={null} className="carouselLivros">
+      {carouselBooks.map((book, index) => (
+        index % 5 === 0 && (
+          <Carousel.Item key={index}>
+            <Container>
+              <Row>
+                <Col xs={12}>
+                  <h2 className="carouselTitle">{title}</h2>
+                </Col>
+              </Row>
+              <Row>
+                {carouselBooks.slice(index, index + 5).map((book) => (
+                  <Col key={book.id} xs={12} sm={6} md={4} lg={2} className="contentLivro">
+                    <img
+                      src={book.volumeInfo && book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/150"}
+                      alt={book.volumeInfo.title}
+                      className="imgLivro"
+                    />
+                    <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
+                    <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">
+                      Ver mais
+                    </Link>
+                  </Col>
+                ))}
+              </Row>
+            </Container>
+          </Carousel.Item>
+        )
+      ))}
+    </Carousel>
+  );
+
+
   return (
     <ThemeProvider theme={theme}>
       <div className="conteiner">
@@ -75,75 +133,20 @@ const Home: React.FC = () => {
               onChange={(e) => setQuery(e.target.value)}
             />
             <IconButton
-              type="button"
+              type="submit"
               sx={{ p: "10px" }}
               aria-label="search"
-              onClick={searchBooks}
             >
               <SearchIcon />
             </IconButton>
           </Paper>
         </div>
+        {searchResults.length > 0 && renderCarousel("Resultados da pesquisa", searchResults)}
+        {renderCarousel("Mais Vendidos Ficção", fictionBooks)}
+        {renderCarousel("Mais Vendidos Romance", romanceBooks)}
+        {renderCarousel("Mais Vendidos Terror", terrorBooks)}
 
-        <h1 className="TituloListagemLivros">Mais Vendidos</h1>
-        <div className="contentlistaLivros">
-        <Carousel indicators={false} interval={null} className="carouselLivros">
-          {books.map((book, index) => (
-            index % 5 === 0 && (
-              <Carousel.Item key={index}>
-                <Container>
-                  <Row>
-                    {books.slice(index, index + 5).map((book) => (
-                      <Col key={book.id} xs={12} sm={6} md={4} lg={2} className="contentLivro">
-                        <img
-                          src={book.volumeInfo.imageLinks?.thumbnail}
-                          alt={book.volumeInfo.title}
-                          className="imgLivro"
-                        />
-                        <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
-                        <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">
-                          Ver mais
-                        </Link>
-                      </Col>
-                    ))}
-                  </Row>
-                </Container>
-              </Carousel.Item>
-            )
-          ))}
-        </Carousel>
-      </div>
-      
-      <h1 className="TituloListagemLivros">Mais vendidos Terror</h1>
-      <div className="contentlistaLivros">
-        <Carousel indicators={false} interval={null} className="carouselLivros">
-          {books.map((book, index) => (
-            index % 5 === 0 && (
-              <Carousel.Item key={index}>
-                <Container>
-                  <Row>
-                    {books.slice(index, index + 5)
-                    .filter((book) => book.volumeInfo.categories == "Terror")
-                    .map((book) => (
-                      <Col key={book.id} xs={12} sm={6} md={4} lg={2} className="contentLivro">
-                        <img
-                          src={book.volumeInfo.imageLinks?.thumbnail}
-                          alt={book.volumeInfo.title}
-                          className="imgLivro"
-                        />
-                        <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
-                        <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">
-                          Ver mais
-                        </Link>
-                      </Col>
-                    ))}
-                  </Row>
-                </Container>
-              </Carousel.Item>
-            )
-          ))}
-        </Carousel>
-      </div>
+
       </div>
     </ThemeProvider>
   );
