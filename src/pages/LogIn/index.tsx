@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
-import { app, db } from '../../firebase';
-import { getAnalytics } from 'firebase/analytics';
-import { getAuth } from 'firebase/auth';
+import { db } from '../../firebase';
 import bcrypt from 'bcryptjs';
 import './style.css';
 

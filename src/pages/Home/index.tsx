@@ -11,7 +11,8 @@ import "./style.css";
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
-
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const Home: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -19,7 +20,7 @@ const Home: React.FC = () => {
   const [romanceBooks, setRomanceBooks] = useState<any[]>([]);
   const [fictionBooks, setFictionBooks] = useState<any[]>([]);
   const [terrorBooks, setTerrorBooks] = useState<any[]>([]);
-
+  const [likedBooks, setLikedBooks] = useState<string[]>([]);
 
   const searchBooks = async (query: string) => {
     try {
@@ -37,6 +38,18 @@ const Home: React.FC = () => {
     e.preventDefault();
     const newBooks = await searchBooks(query);
     setSearchResults(newBooks);
+  };
+
+  const handleLike = (bookId: string) => {
+    if (likedBooks.includes(bookId)) {
+      setLikedBooks(likedBooks.filter((id) => id !== bookId));
+    } else {
+      setLikedBooks([...likedBooks, bookId]);
+    }
+  };
+
+  const isBookLiked = (bookId: string) => {
+    return likedBooks.includes(bookId);
   };
 
   const theme = createTheme({
@@ -72,6 +85,7 @@ const Home: React.FC = () => {
 
     fetchRomanceBooks();
   }, []);
+
   const renderCarousel = (title: string, carouselBooks: any[]) => (
     <Carousel indicators={false} interval={null} className="carouselLivros">
       {carouselBooks.map((book, index) => (
@@ -85,16 +99,25 @@ const Home: React.FC = () => {
               </Row>
               <Row>
                 {carouselBooks.slice(index, index + 5).map((book) => (
-                  <Col key={book.id} xs={12} sm={6} md={4} lg={2} className="contentLivro">
+                  <Col key={book.id} lg={2} className="contentLivro">
                     <img
                       src={book.volumeInfo && book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/150"}
                       alt={book.volumeInfo.title}
                       className="imgLivro"
                     />
                     <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
-                    <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">
-                      Ver mais
-                    </Link>
+                    <div className="botoesLivro">
+                      <button className="botaoLikeLivro" onClick={() => handleLike(book.id)}>
+                        {isBookLiked(book.id) ? (
+                          <FavoriteIcon className="iconeLikeLivro" />
+                        ) : (
+                          <FavoriteBorderIcon />
+                        )}
+                      </button>
+                      <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">
+                        Ver mais
+                      </Link>
+                    </div>
                   </Col>
                 ))}
               </Row>
@@ -104,7 +127,6 @@ const Home: React.FC = () => {
       ))}
     </Carousel>
   );
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -145,8 +167,6 @@ const Home: React.FC = () => {
         {renderCarousel("Mais Vendidos Ficção", fictionBooks)}
         {renderCarousel("Mais Vendidos Romance", romanceBooks)}
         {renderCarousel("Mais Vendidos Terror", terrorBooks)}
-
-
       </div>
     </ThemeProvider>
   );

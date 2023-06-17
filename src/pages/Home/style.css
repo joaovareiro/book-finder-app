@@ -30,15 +30,15 @@
 }
 
 .iconLivro {
-    font-size: 2em !important;
+    font-size: 2em;
     padding-right: 3%;
-    color: black !important;
+    color: black;
 }
 
 .pesquisa {
     width: 30%;
     height: 40%;
-    border-radius: 15px !important;
+    border-radius: 15px;
     border: 0;
 }
 
@@ -83,8 +83,8 @@
     background-color: #f0edd4;
     min-width: 15%;
     height: 350px;
-    margin: 0 2% 0 0;
-    padding: 3% 2% 0 1%;
+    margin: 1%;
+    padding-top: 3%;
     border-radius: 30px;
     display: flex;
     flex-direction: column;
@@ -101,17 +101,8 @@
 }
 
 .tituloLivro {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
     overflow: hidden;
-    max-width: 170px;
     text-overflow: ellipsis;
-}
-
-.linkInformacaoLivro {
-    color: black;
-    margin-bottom: 15%;
 }
 
 .carousel {
@@ -123,4 +114,29 @@
 .carousel-control-next,
 .carousel-control-prev {
     filter: invert(100%);
+}
+
+.botoesLivro {
+    width: 100%;
+    margin: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.botaoLikeLivro {
+    padding: 15px;
+    margin: 0;
+    background-color: #A7A37E;
+    border-radius: 5px;
+    color: #ffff;
+    text-decoration: none;
+}
+
+.linkInformacaoLivro {
+    background-color: #A7A37E;
+    padding: 15px;
+    border-radius: 5px;
+    color: #ffff;
+    text-decoration: none;
 }
