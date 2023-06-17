@@ -1,10 +1,8 @@
 import './style.css';
 import React, { useState } from 'react';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
-import { app, db } from '../../firebase';
+import { db } from '../../firebase';
 import bcrypt from 'bcryptjs';
 
 
@@ -13,7 +11,7 @@ const createUser = async (email: string, senha: string, senha_confirmacao: strin
   const salt = await bcrypt.genSalt(saltRounds);
   const senhaEncriptada = bcrypt.hashSync(senha, salt)
 
-  if (senha == senha_confirmacao) {
+  if (senha === senha_confirmacao) {
     await addDoc(collection(db, "users"), {
       login: email,
       senha: senhaEncriptada,
