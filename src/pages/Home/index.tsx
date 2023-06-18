@@ -55,10 +55,10 @@ const Home: React.FC = () => {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#ffff", // cor primária
+        main: "#ffff",
       },
       secondary: {
-        main: "#f50057", // cor secundária
+        main: "#f50057",
       },
     },
   });
@@ -78,12 +78,12 @@ const Home: React.FC = () => {
 
     fetchFictionBooks();
 
-    // const fetchRomanceBooks = async () => {
-    //   const romanceBooks = await searchBooks("livros de romance");
-    //   setRomanceBooks(romanceBooks);
-    // };
+    const fetchRomanceBooks = async () => {
+      const romanceBooks = await searchBooks("livros de romance");
+      setRomanceBooks(romanceBooks);
+    };
 
-    // fetchRomanceBooks();
+    fetchRomanceBooks();
   }, []);
 
   const renderCarousel = (title: string, carouselBooks: any[]) => (
@@ -165,7 +165,7 @@ const Home: React.FC = () => {
         </div>
         {searchResults.length > 0 && renderCarousel("Resultados da pesquisa", searchResults)}
         {renderCarousel("Mais Vendidos Ficção", fictionBooks)}
-        {/* {renderCarousel("Mais Vendidos Romance", romanceBooks)} */}
+        {renderCarousel("Mais Vendidos Romance", romanceBooks)}
         {renderCarousel("Mais Vendidos Terror", terrorBooks)}
       </div>
     </ThemeProvider>
