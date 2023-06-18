@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 import axios from "axios";
 import BookIcon from "@mui/icons-material/Book";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -13,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -23,9 +22,11 @@ const Home: React.FC = () => {
   const [terrorBooks, setTerrorBooks] = useState<any[]>([]);
   const [likedBooks, setLikedBooks] = useState<string[]>([]);
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const email = queryParams.get('email');
-  const password = queryParams.get('password');
+  const email = queryParams.get('email') || '';
+  const password = queryParams.get('password') || '';
 
   const searchBooks = async (query: string) => {
     try {
@@ -133,11 +134,8 @@ const Home: React.FC = () => {
     </Carousel>
   );
   const goToLike = () =>{
-    if(email!==null && password!==null){
-      const navigate = useNavigate();
-      const queryParams = `?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
-      navigate(`/like${queryParams}`);
-    }
+    const queryParams = `?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+    navigate(`/like${queryParams}`);
   };
   return (
     <ThemeProvider theme={theme}>
@@ -145,8 +143,9 @@ const Home: React.FC = () => {
         <div className="contentBusca">
           <div className="contentLogoTitulo">
             <BookIcon color="primary" className="iconLivro"></BookIcon>
-            <button onClick={() => goToLike()}>Favoritos</button>
+            
             <h1 className="titulo">Book Finder</h1>
+            <button onClick={() => goToLike()}>Favoritos</button>
           </div>
           <Paper
             className="pesquisa"

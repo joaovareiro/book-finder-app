@@ -1,20 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { db } from '../../firebase';
 import { collection, getDocs, query, where } from "firebase/firestore";
 import axios from "axios";
 import { Carousel, Container, Row, Col } from "react-bootstrap";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import "./style.css";
+import BookIcon from "@mui/icons-material/Book";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Paper } from '@mui/material';
 
 const LikePage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const email = queryParams.get('email');
-  const password = queryParams.get('password');
+  const email = queryParams.get('email') || '';
+  const password = queryParams.get('password') || '';
   const [carouselBooks, setCarouselBooks] = useState<any[]>([]);
+  const [likedBooks, setLikedBooks] = useState<string[]>([]);
 
   useEffect(() => {
     coletarFavoritos(email);
   }, []);
+
+  const handleLike = (bookId: string) => {
+    if (likedBooks.includes(bookId)) {
+      setLikedBooks(likedBooks.filter((id: string) => id !== bookId));
+    } else {
+      setLikedBooks([...likedBooks, bookId]);
+    }
+  };
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#ffff", // cor primária
+      },
+      secondary: {
+        main: "#f50057", // cor secundária
+      },
+    },
+  });
+
+  const isBookLiked = (bookId: string) => {
+    return likedBooks.includes(bookId);
+  };
 
   const searchBook = async (id: string) => {
     try {
@@ -95,12 +126,25 @@ const LikePage = () => {
       ))}
     </Carousel>
   );
+  
+  const goToHome = () =>{
+    const queryParams = `?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+    navigate(`/home${queryParams}`);
+  };
 
   return (
-    <div>
-      <h2>Favoritos</h2>
-      {renderCarousel(carouselBooks)}
-    </div>
+    <ThemeProvider theme={theme}>
+     <div className="conteiner">
+        <div className="contentBusca">
+          <div className="contentLogoTitulo">
+            <BookIcon color="primary" className="iconLivro"></BookIcon>
+            
+            <h1 className="titulo">Book Finder</h1>
+            <button onClick={() => goToHome()}>Home</button>
+          </div>
+          </div>
+        </div>
+        </ThemeProvider>
   );
 };
 
