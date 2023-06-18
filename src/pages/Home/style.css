@@ -13,7 +13,7 @@
 }
 
 .contentBusca {
-    height: 15%;
+    height: 10%;
     background-color: #A7A37E;
     display: flex;
     flex-direction: column;
@@ -101,8 +101,10 @@
 }
 
 .tituloLivro {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 15px !important;
+    font-style: normal;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .carousel {
@@ -116,6 +118,13 @@
     filter: invert(100%);
 }
 
+.carouselTitle {
+    font-size: 24px !important;
+    font-style: normal;
+    margin-top: 60px;
+
+}
+
 .botoesLivro {
     width: 100%;
     margin: 15px;
@@ -125,7 +134,7 @@
 }
 
 .botaoLikeLivro {
-    padding: 15px;
+    padding: 8px;
     margin: 0;
     background-color: #A7A37E;
     border-radius: 5px;
@@ -135,7 +144,7 @@
 
 .linkInformacaoLivro {
     background-color: #A7A37E;
-    padding: 15px;
+    padding: 8px;
     border-radius: 5px;
     color: #ffff;
     text-decoration: none;
