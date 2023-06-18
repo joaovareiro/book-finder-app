@@ -41,30 +41,30 @@ const SignInPage = () => {
   return (
 
     <div className="CriarLogin">
-    <div className="CriarLoginBox">
-      <div className="CriarLoginHeader">Crie seu login ! 😀</div>
-      <div className="inputs">
-        <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input
-          className="password"
-          placeholder="Senha"
-          type="password"
-          value={senha}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-         <input
-           type="password"
-           placeholder="Confirme sua senha"
-           value={senha_confirmacao}
-           onChange={(e) => setPasswordCheck(e.target.value)}
-        />
+      <div className="CriarLoginBox">
+        <div className="CriarLoginHeader">Crie seu login ! 😀</div>
+        <div className="inputs">
+          <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            className="password"
+            placeholder="Senha"
+            type="password"
+            value={senha}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Confirme sua senha"
+            value={senha_confirmacao}
+            onChange={(e) => setPasswordCheck(e.target.value)}
+          />
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button onClick={handleLogin} className="submitbutton">Cadastrar</button>
+        </div>
+        <Link style={{ display: "flex", justifyContent: "center" }} to='/' className='ButtonLogin'>Retornar para Login</Link>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <button onClick={handleLogin} className="submitbutton">Cadastrar</button>
-      </div>
-      <Link style={{ display: "flex", justifyContent: "center" }} to='/' className='ButtonLogin'>Retornar para Login</Link>
     </div>
-  </div>
   );
 };
 

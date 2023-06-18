@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import BookIcon from "@mui/icons-material/Book";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -8,24 +8,93 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import "./style.css";
-import { Carousel } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Carousel } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col } from "react-bootstrap";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { collection, doc, getDocs, setDoc, where, query } from "firebase/firestore";
+import { db } from "../../firebase";
+
+export const renderCarousel = (title: string, carouselBooks: any[], handleLike: Function, likedBooks: string[]) => {
+  const items = [];
+
+  for (let index = 0; index < carouselBooks.length; index += 5) {
+    const carouselItem = (
+      <Carousel.Item key={index}>
+        <Container>
+          <Row>
+            <Col xs={12}>
+              <h2 className="carouselTitle">{title}</h2>
+            </Col>
+          </Row>
+          <Row>
+            {carouselBooks.slice(index, index + 5).map((book) => (
+              <Col key={book.id} lg={2} className="contentLivro">
+                <img
+                  src={
+                    book.volumeInfo &&
+                      book.volumeInfo.imageLinks &&
+                      book.volumeInfo.imageLinks.thumbnail
+                      ? book.volumeInfo.imageLinks.thumbnail
+                      : "https://via.placeholder.com/150"
+                  }
+                  alt={book.volumeInfo.title}
+                  className="imgLivro"
+                />
+                <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
+                <div className="botoesLivro">
+                  <button
+                    className={`botaoLikeLivro ${likedBooks.includes(book.id) ? 'liked' : ''}`}
+                    onClick={() => handleLike(book.id)}
+                  >
+                    {likedBooks.includes(book.id) ? (
+                      <FavoriteIcon className="iconeLikeLivro" />
+                    ) : (
+                      <FavoriteBorderIcon />
+                    )}
+                  </button>
+
+                  <Link
+                    to={`/bookinfo/${book.id}`}
+                    className="linkInformacaoLivro"
+                  >
+                    Ver mais
+                  </Link>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </Carousel.Item>
+    );
+
+    items.push(carouselItem);
+  }
+
+  return (
+    <Carousel indicators={false} interval={null} className="carouselLivros">
+      {items}
+    </Carousel>
+  );
+};
+
 
 const Home: React.FC = () => {
-  const [query, setQuery] = useState("");
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const email = queryParams.get("email");
+  const [querySearch, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [romanceBooks, setRomanceBooks] = useState<any[]>([]);
   const [fictionBooks, setFictionBooks] = useState<any[]>([]);
   const [terrorBooks, setTerrorBooks] = useState<any[]>([]);
   const [likedBooks, setLikedBooks] = useState<string[]>([]);
 
-  const searchBooks = async (query: string) => {
+  const searchBooks = async (querySearch: string) => {
     try {
       const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`
+        `https://www.googleapis.com/books/v1/volumes?q=${querySearch}&maxResults=20`
       );
       return response.data.items;
     } catch (error) {
@@ -36,21 +105,35 @@ const Home: React.FC = () => {
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newBooks = await searchBooks(query);
+    const newBooks = await searchBooks(querySearch);
     setSearchResults(newBooks);
   };
 
-  const handleLike = (bookId: string) => {
-    if (likedBooks.includes(bookId)) {
-      setLikedBooks(likedBooks.filter((id) => id !== bookId));
-    } else {
-      setLikedBooks([...likedBooks, bookId]);
+  const handleLike = async (bookId: string) => {
+    if (email) {
+      try {
+        const updatedLikedBooks = likedBooks.includes(bookId)
+          ? likedBooks.filter((id) => id !== bookId)
+          : [...likedBooks, bookId];
+        setLikedBooks(updatedLikedBooks);
+
+        if (email) {
+          const usersCollection = collection(db, "users");
+          const querySnapshot = await getDocs(query(usersCollection, where("login", "==", email)));
+
+          if (!querySnapshot.empty) {
+            const userDoc = querySnapshot.docs[0];
+            await setDoc(userDoc.ref, { favoritos: updatedLikedBooks }, { merge: true });
+            console.log("Liked books updated");
+          }
+        }
+      } catch (error) {
+        console.error("Error updating liked books:", error);
+      }
     }
   };
 
-  const isBookLiked = (bookId: string) => {
-    return likedBooks.includes(bookId);
-  };
+
 
   const theme = createTheme({
     palette: {
@@ -86,47 +169,53 @@ const Home: React.FC = () => {
     fetchRomanceBooks();
   }, []);
 
-  const renderCarousel = (title: string, carouselBooks: any[]) => (
-    <Carousel indicators={false} interval={null} className="carouselLivros">
-      {carouselBooks.map((book, index) => (
-        index % 5 === 0 && (
-          <Carousel.Item key={index}>
-            <Container>
-              <Row>
-                <Col xs={12}>
-                  <h2 className="carouselTitle">{title}</h2>
-                </Col>
-              </Row>
-              <Row>
-                {carouselBooks.slice(index, index + 5).map((book) => (
-                  <Col key={book.id} lg={2} className="contentLivro">
-                    <img
-                      src={book.volumeInfo && book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/150"}
-                      alt={book.volumeInfo.title}
-                      className="imgLivro"
-                    />
-                    <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
-                    <div className="botoesLivro">
-                      <button className="botaoLikeLivro" onClick={() => handleLike(book.id)}>
-                        {isBookLiked(book.id) ? (
-                          <FavoriteIcon className="iconeLikeLivro" />
-                        ) : (
-                          <FavoriteBorderIcon />
-                        )}
-                      </button>
-                      <Link to={`/bookinfo/${book.id}`} className="linkInformacaoLivro">
-                        Ver mais
-                      </Link>
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-            </Container>
-          </Carousel.Item>
-        )
-      ))}
-    </Carousel>
-  );
+  useEffect(() => {
+    if (email) {
+      const fetchLikedBooks = async () => {
+        try {
+          const usersCollection = collection(db, "users");
+          const querySnapshot = await getDocs(
+            query(usersCollection, where("login", "==", email))
+          );
+
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((document) => {
+              const favoritos = document.data().favoritos;
+              if (favoritos && Array.isArray(favoritos)) {
+                setLikedBooks(favoritos);
+                console.log(favoritos);
+              }
+            });
+          } else {
+            console.log("Usuário não encontrado");
+          }
+        } catch (error) {
+          console.error("Error fetching liked books:", error);
+        }
+      };
+
+      fetchLikedBooks();
+    }
+  }, [email]);
+
+  useEffect(() => {
+    if (email) {
+      const updateLikedBooks = async () => {
+        try {
+          const userRef = doc(db, "users", email);
+          await setDoc(userRef, { favoritos: likedBooks }, { merge: true });
+          console.log("Liked books updated");
+          console.log(likedBooks);
+        } catch (error) {
+          console.error("Error updating liked books:", error);
+        }
+      };
+
+      if (likedBooks.length > 0) {
+        updateLikedBooks();
+      }
+    }
+  }, [email, likedBooks]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -150,7 +239,7 @@ const Home: React.FC = () => {
             <InputBase
               sx={{ ml: 1, flex: 1 }}
               type="text"
-              value={query}
+              value={querySearch}
               placeholder="Busque pelo nome do livro"
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -162,11 +251,24 @@ const Home: React.FC = () => {
               <SearchIcon />
             </IconButton>
           </Paper>
+
+          <Link
+            to={`/favoritos?email=${encodeURIComponent(email || "")}`}
+            className="linkFavoritos"
+          >
+            Meus Favoritos
+          </Link>
         </div>
-        {searchResults.length > 0 && renderCarousel("Resultados da pesquisa", searchResults)}
-        {renderCarousel("Mais Vendidos Ficção", fictionBooks)}
-        {renderCarousel("Mais Vendidos Romance", romanceBooks)}
-        {renderCarousel("Mais Vendidos Terror", terrorBooks)}
+        {searchResults.length > 0 &&
+          renderCarousel(
+            "Resultados da pesquisa",
+            searchResults,
+            handleLike,
+            likedBooks
+          )}
+        {renderCarousel("Mais Vendidos Ficção", fictionBooks, handleLike, likedBooks)}
+        {renderCarousel("Mais Vendidos Romance", romanceBooks, handleLike, likedBooks)}
+        {renderCarousel("Mais Vendidos Terror", terrorBooks, handleLike, likedBooks)}
       </div>
     </ThemeProvider>
   );
