@@ -20,7 +20,7 @@ const LoginPage = () => {
       const isPasswordMatched = await bcrypt.compare(senha, user.senha);
       if (isPasswordMatched) {
         console.log('Login realizado com sucesso!');
-        const queryParams = `?email=${encodeURIComponent(email)}&password=${encodeURIComponent(senha)}`;
+        const queryParams = `?email=${encodeURIComponent(email)}`;
         navigate(`/home${queryParams}`);
         return 0;
       } else {

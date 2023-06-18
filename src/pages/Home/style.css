@@ -16,17 +16,14 @@
     height: 10%;
     background-color: #A7A37E;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .contentLogoTitulo {
-    position: absolute;
     left: 10px;
     top: 10px;
     display: flex;
-    align-items: center;
 }
 
 .iconLivro {

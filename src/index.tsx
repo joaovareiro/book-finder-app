@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import BookInfo from './pages/BookInfo';
 import LoginPage from './pages/LogIn';
 import CadastroPage from './pages/SignIn';
-
+import Favoritos from './pages/Favoritos';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -17,6 +17,8 @@ ReactDOM.render(
         <Route path="/bookinfo/:id" element={<BookInfo />} />
         <Route path="/home" element={<Home />} />
         <Route path="/cadastro" element={<CadastroPage />} />
+        <Route path='/favoritos' element={<Favoritos />} />
+
       </Routes>
     </BrowserRouter>
 
