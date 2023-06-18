@@ -24,6 +24,7 @@
     ]
   },
   "include": [
-    "src"
+    "src",
+    "book-finder-app/src/firebase.js"
   ]
 }

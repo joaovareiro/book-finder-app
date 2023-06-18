@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -21,6 +22,10 @@ const Home: React.FC = () => {
   const [fictionBooks, setFictionBooks] = useState<any[]>([]);
   const [terrorBooks, setTerrorBooks] = useState<any[]>([]);
   const [likedBooks, setLikedBooks] = useState<string[]>([]);
+
+  const queryParams = new URLSearchParams(location.search);
+  const email = queryParams.get('email');
+  const password = queryParams.get('password');
 
   const searchBooks = async (query: string) => {
     try {
@@ -42,7 +47,7 @@ const Home: React.FC = () => {
 
   const handleLike = (bookId: string) => {
     if (likedBooks.includes(bookId)) {
-      setLikedBooks(likedBooks.filter((id) => id !== bookId));
+      setLikedBooks(likedBooks.filter((id: string) => id !== bookId));
     } else {
       setLikedBooks([...likedBooks, bookId]);
     }
@@ -127,13 +132,20 @@ const Home: React.FC = () => {
       ))}
     </Carousel>
   );
-
+  const goToLike = () =>{
+    if(email!==null && password!==null){
+      const navigate = useNavigate();
+      const queryParams = `?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+      navigate(`/like${queryParams}`);
+    }
+  };
   return (
     <ThemeProvider theme={theme}>
       <div className="conteiner">
         <div className="contentBusca">
           <div className="contentLogoTitulo">
             <BookIcon color="primary" className="iconLivro"></BookIcon>
+            <button onClick={() => goToLike()}>Favoritos</button>
             <h1 className="titulo">Book Finder</h1>
           </div>
           <Paper

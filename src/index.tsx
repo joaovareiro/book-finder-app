@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import BookInfo from './pages/BookInfo';
 import LoginPage from './pages/LogIn';
 import CadastroPage from './pages/SignIn';
+import LikePage from './pages/LikePage';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Route path="/bookinfo/:id" element={<BookInfo />} />
         <Route path="/home" element={<Home />} />
         <Route path="/cadastro" element={<CadastroPage />} />
+        <Route path="/like" element={<LikePage />} />
       </Routes>
     </BrowserRouter>
 
