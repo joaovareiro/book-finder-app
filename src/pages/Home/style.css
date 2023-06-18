@@ -101,10 +101,12 @@
 }
 
 .tituloLivro {
-    font-size: 15px !important;
-    font-style: normal;
-    text-align: center;
-    margin-top: 10px;
+    font-size: 17px !important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .carousel {
@@ -119,10 +121,7 @@
 }
 
 .carouselTitle {
-    font-size: 24px !important;
     font-style: normal;
-    margin-top: 60px;
-
 }
 
 .botoesLivro {
@@ -140,6 +139,7 @@
     border-radius: 5px;
     color: #ffff;
     text-decoration: none;
+    border: none;
 }
 
 .linkInformacaoLivro {
