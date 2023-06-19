@@ -65,10 +65,11 @@ const BookInfo: React.FC = () => {
         </div>
         <div className="conteinerInfo">
           <div className="bookInfo">
+            <p className="desc">Descrição</p>
             <p className="descricao" dangerouslySetInnerHTML={{ __html: sanitizeHTML(description) }}></p>
             <a className="linkBook" href={link} target="_blank" rel="noopener noreferrer">Ver mais informações</a>
           </div>
-          <div className="cardBook">
+          <div className="cardBookInfo">
             <p className="tituloLivro">{title}</p>
             <img
               src={book.volumeInfo.imageLinks?.thumbnail}
