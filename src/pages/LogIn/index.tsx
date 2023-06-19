@@ -62,7 +62,7 @@ const LoginPage = () => {
           <button onClick={handleLogin} className="submitbutton">Login</button>
         </div>
         <Link style={{ display: "flex", justifyContent: "center" }} to="/cadastro" className="ButtonCadastro">
-          Cadastra-se
+          Cadastrar-se
         </Link>
       </div>
     </div>

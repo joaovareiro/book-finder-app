@@ -40,10 +40,10 @@ const SignInPage = () => {
 
   return (
 
-    <div className="CriarLogin">
-      <div className="CriarLoginBox">
-        <div className="CriarLoginHeader">Crie seu login ! 😀</div>
-        <div className="inputs">
+    <div className="criarLogin">
+      <div className="criarLoginBox">
+        <div className="criarLoginHeader">Crie seu login</div>
+        <div className="inputLogin">
           <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <input
             className="password"
@@ -53,16 +53,17 @@ const SignInPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <input
+            className='passwordConfirm'
             type="password"
             placeholder="Confirme sua senha"
             value={senha_confirmacao}
             onChange={(e) => setPasswordCheck(e.target.value)}
           />
         </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div>
           <button onClick={handleLogin} className="submitbutton">Cadastrar</button>
         </div>
-        <Link style={{ display: "flex", justifyContent: "center" }} to='/' className='ButtonLogin'>Retornar para Login</Link>
+        <Link to='/' className='buttonLogin'>Retornar para Login</Link>
       </div>
     </div>
   );

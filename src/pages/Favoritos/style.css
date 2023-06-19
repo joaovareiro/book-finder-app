@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.favoritosHeader {
+    height: 80px;
+    background-color: #A7A37E;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.favoritosContentLogo {
+    display: flex;
+    margin-left: 100px;
+}

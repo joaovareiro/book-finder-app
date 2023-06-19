@@ -13,35 +13,58 @@
 }
 
 .contentBusca {
-    height: 10%;
+    min-height: 8%;
     background-color: #A7A37E;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .contentLogoTitulo {
-    left: 10px;
-    top: 10px;
     display: flex;
+    margin-left: 100px;
+}
+
+.favoritosContentLogo {
+    display: flex;
+    margin-left: 100px;
+    text-decoration: none;
 }
 
 .iconLivro {
-    font-size: 2em;
-    padding-right: 3%;
-    color: black;
+    color: black !important;
+    font-size: 2.2em !important;
 }
 
 .pesquisa {
-    width: 30%;
-    height: 40%;
-    border-radius: 15px;
-    border: 0;
+    width: 30% !important;
+    height: 70%;
+    border-radius: 10px !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.inputPesquisa {
+    padding-left: 10px;
 }
 
 .titulo {
-    font-size: 1.3em;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5em;
     color: black;
+    font-weight: bold;
+}
+
+.linkFavoritos {
+    text-decoration: none;
+    color: black;
+    background-color: #f0edd4;
+    padding: 10px;
+    margin-right: 100px;
+    border-radius: 10px;
 }
 
 .contentListagemLivros {
@@ -50,19 +73,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.TituloListagemLivros {
-    margin: 2.5% 0 0 5%;
-    color: back;
-    font-size: 2.5em;
-}
-
-.TituloListagemLivroSecudanrio {
-    margin: 0% 0 0 20%;
-    color: black;
-    font-size: 1em;
-    text-decoration: underline;
 }
 
 .contentlistaLivros {
@@ -98,10 +108,10 @@
 }
 
 .tituloLivro {
-    font-size: 17px !important;
+    font-size: 18px !important;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -130,7 +140,7 @@
 }
 
 .botaoLikeLivro {
-    padding: 8px;
+    padding: 10px;
     margin: 0;
     background-color: #A7A37E;
     border-radius: 5px;
@@ -141,7 +151,7 @@
 
 .linkInformacaoLivro {
     background-color: #A7A37E;
-    padding: 8px;
+    padding: 10px;
     border-radius: 5px;
     color: #ffff;
     text-decoration: none;
