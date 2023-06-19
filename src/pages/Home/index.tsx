@@ -42,7 +42,7 @@ export const renderCarousel = (title: string, carouselBooks: any[], handleLike: 
                   alt={book.volumeInfo.title}
                   className="imgLivro"
                 />
-                <h4 className="tituloLivro">{book.volumeInfo.title}</h4>
+                <p className="tituloLivro">{book.volumeInfo.title}</p>
                 <div className="botoesLivro">
                   <button
                     className={`botaoLikeLivro ${likedBooks.includes(book.id) ? 'liked' : ''}`}
@@ -223,34 +223,30 @@ const Home: React.FC = () => {
         <div className="contentBusca">
           <div className="contentLogoTitulo">
             <BookIcon color="primary" className="iconLivro"></BookIcon>
-            <h1 className="titulo">Book Finder</h1>
+            <p className="titulo">Book Finder</p>
           </div>
+
           <Paper
             className="pesquisa"
             component="form"
-            sx={{
-              p: "1px 2px",
-              display: "flex",
-              alignItems: "center",
-              width: 300,
-            }}
             onSubmit={handleFormSubmit}
           >
             <InputBase
-              sx={{ ml: 1, flex: 1 }}
+              className="inputPesquisa"
               type="text"
               value={querySearch}
               placeholder="Busque pelo nome do livro"
               onChange={(e) => setQuery(e.target.value)}
             />
             <IconButton
+              className="botaoPesquisa"
               type="submit"
-              sx={{ p: "10px" }}
               aria-label="search"
             >
               <SearchIcon />
             </IconButton>
           </Paper>
+
 
           <Link
             to={`/favoritos?email=${encodeURIComponent(email || "")}`}

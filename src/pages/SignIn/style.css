@@ -1,28 +1,36 @@
-.CriarLogin {
+.criarLogin {
     display: flex;
-    justify-content: center;
     align-items: center;
+    width: 100vw;
+    height: 100vh;
+    justify-content: space-around;
 }
 
-.CriarLoginBox {
-    margin-top: 8rem;
-    width: 350px;
-    height: 400px;
-    background-color: #A7A37E;
+.criarLoginBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 8rem;
+    width: 25%;
+    height: 50%;
+    background-color: #ddd7a2;
     padding: 20px;
     border-radius: 10px;
+    justify-content: space-around;
 }
 
-.CriarLoginHeader {
+.criarLoginHeader {
     display: flex;
-    justify-content: center;
     align-items: center;
     font-size: xx-large;
     font-weight: bolder;
 }
 
-.inputs {
-    padding: 5px;
+.inputLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 30%;
 }
 
 .email {
@@ -39,10 +47,22 @@
     border-width: 1;
 }
 
+.passwordConfirm {
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    border-width: 1;
+}
+
 .submitbutton {
     width: 100px;
     height: 40px;
-    background-color: black;
+    background-color: #79733c;
     color: aliceblue;
     border-radius: 6px;
+}
+
+.buttonLogin {
+    text-decoration: none;
+    color: black;
 }
