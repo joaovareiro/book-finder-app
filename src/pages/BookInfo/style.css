@@ -25,10 +25,10 @@
     max-width: 750px;
 }
 
-.cardBook {
+.cardBookInfo {
     background-color: #f0edd4;
     border-radius: 30px;
-    height: 80%;
+    height: 100%;
     width: 18%;
     margin-top: 3%;
     padding: 1%;
@@ -39,7 +39,7 @@
 }
 
 .tituloLivro {
-    font-size: 30px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 500;
     width: 100%;
@@ -47,23 +47,32 @@
 
 .imgbook {
     border-radius: 25px;
-    width: 80%;
+    width: 50%;
 }
 
 .autores {
-    font-size: 30px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 500;
 }
 
+.desc {
+    width: 100%;
+    margin: 3% 5% 0% -15%;
+    margin-top: 150px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
 .descricao {
     width: 100%;
-    margin: 3% 5% 0% 4.5%;
-    font-size: 25px;
+    margin: 3% 5% 0% -15%;
+    margin-top: 60px;
+    font-size: 18px;
 }
 
 .linkBook{
-    margin: 3% 5% 0% 4.5%;
-    font-size: 22.5px;
+    margin: 3% 5% 0% -15%;
+    font-size: 16px;
     font-weight: 500;
 }

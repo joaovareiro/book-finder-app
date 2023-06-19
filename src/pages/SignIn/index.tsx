@@ -42,7 +42,7 @@ const SignInPage = () => {
 
     <div className="criarLogin">
       <div className="criarLoginBox">
-        <div className="criarLoginHeader">Crie seu login</div>
+        <div className="criarLoginHeader">Crie seu login 👤</div>
         <div className="inputLogin">
           <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <input

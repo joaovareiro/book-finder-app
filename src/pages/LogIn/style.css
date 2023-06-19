@@ -1,4 +1,7 @@
 .Login {
+    background-image: url("biblio.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     align-items: center;
     width: 100vw;
@@ -15,7 +18,7 @@
     height: 50%;
     background-color: #ddd7a2;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 50px;
     justify-content: space-around;
 }
 
